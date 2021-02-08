@@ -3,8 +3,6 @@ name: BuildSpigot
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
   schedule:
     - cron: "0 0 * * *"
 
@@ -16,44 +14,16 @@ jobs:
 
     steps:
       # Get BuildTools from repo
-      - name: Get BuildTools
+      - name: Getting BuildTools
         uses: actions/checkout@v2
 
       # Build Spigot by BuildTools
       - name: Building Spigot
-        run: |
-          java -jar BuildTools.jar --rev latest
-          ls
+        # !! Change 'latest' to the version what you wanted. !!
+        run: java -jar BuildTools.jar --rev latest
       
       # Uploading the build jar files.
       - name: Uploading Build
         uses: actions/upload-artifact@v2
         with:
           path: ./spigot*.jar
-
-      - name: Getting Date
-        id: date
-        run: echo "date=$(date+'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
-
-      - name: Creating Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: nightly-${{ steps.date.outputs.date }}
-          RELEASE_NAME: Nightly Build ${{ steps.date.outputs.date }}
-        with:
-          tag_name: ${{ env.TAG_NAME }}
-          release_name: ${{ env.RELEASE_NAME }}
-          draft: false
-          prerelease: false
-      
-      - name: Uploading Release Assets
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          assets_path: ./spigot*.jar
-          assets_name: spigot.jar
-          assets_content_type: application/zip
