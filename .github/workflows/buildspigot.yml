@@ -1,8 +1,6 @@
 name: BuildSpigot
 
 on:
-  push:
-    branches: [ master ]
   schedule:
     - cron: "0 0 * * *"
 
@@ -26,4 +24,5 @@ jobs:
       - name: Uploading Build
         uses: actions/upload-artifact@v2
         with:
+          name: spigot
           path: ./spigot*.jar
