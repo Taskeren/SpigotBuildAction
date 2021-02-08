@@ -33,16 +33,18 @@ jobs:
 
       - name: Getting Date
         id: date
-        run: echo "name=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        run: echo "date=$(date+'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
 
       - name: Creating Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: nightly-${{ steps.date.outputs.date }}
+          RELEASE_NAME: Nightly Build ${{ steps.date.outputs.date }}
         with:
-          tag_name: nightly-${{ steps.date.outputs.date }}
-          release_name: Nightly Build ${{ steps.date.outputs.date }}
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: ${{ env.RELEASE_NAME }}
           draft: false
           prerelease: false
       
