@@ -24,14 +24,21 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # 
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Preparation
+      # Do the preparation
+      - name: Preparing
         run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: Build Spigot
+      # Build Spigot by BuildTools
+      - name: Building Spigot
         run: |
           java -jar BuildTools.jar --rev latest
+          ls
+      
+      # Uploading the build jar files.
+      - uses: actions/upload-artifact@v2
+        name: Uploading Build
+        with:
+          path: /*
