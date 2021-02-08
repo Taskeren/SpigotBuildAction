@@ -38,7 +38,8 @@ jobs:
           ls
       
       # Uploading the build jar files.
-      - uses: actions/upload-artifact@v2
-        name: Uploading Build
+      - name: Uploading Build
+        uses: actions/upload-artifact@v2
         with:
-          path: /*
+          name: spigot.jar
+          path: ./spigot*.jar
