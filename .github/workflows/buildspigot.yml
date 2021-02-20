@@ -26,3 +26,10 @@ jobs:
         with:
           name: spigot
           path: ./spigot*.jar
+      
+      - name: ServerChan
+        uses: yakumioto/serverchan-action@v1
+        with:
+          key: ${{ secrets.serverchanKey }}
+          text: SpigotBuildAction
+          desc: Latest spigot was just built.
