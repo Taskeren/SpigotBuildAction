@@ -30,6 +30,6 @@ jobs:
       - name: ServerChan
         uses: yakumioto/serverchan-action@v1
         with:
-          key: ${{ secrets.serverchanKey }}
+          key: ${{ secrets.SERVERCHANKEY }}
           text: SpigotBuildAction
-          desc: Latest spigot was just built.
+          desp: Latest spigot was just built.
