@@ -26,3 +26,17 @@ jobs:
         with:
           name: spigot
           path: ./spigot*.jar
+        
+      - name: Getting Current Date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
+      - name: Creating Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          title: "Nightly Spigot ${{ steps.date.outputs.date }}"
+          automatic_release_tag: "${{ steps.date.outputs.date }}"
+          files: |
+            ./spigot*.jar
