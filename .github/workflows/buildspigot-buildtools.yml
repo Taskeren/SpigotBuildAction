@@ -1,4 +1,4 @@
-name: BuildSpigot
+name: BuildSpigot with Latest BuildTools
 
 on:
   schedule:
@@ -13,7 +13,7 @@ jobs:
     steps:
       # Get BuildTools from https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
       - name: Getting BuildTools
-        run: curl https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+        run: curl https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar -o ./BuildTools.jar
 
       # Build Spigot by BuildTools
       - name: Building Spigot
