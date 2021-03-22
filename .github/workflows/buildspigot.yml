@@ -1,9 +1,11 @@
+# 
+# This version SpigotBuildAction script is outdated.
+# Use "BuildSpigot with Latest BuildTools" in "~/.github/workflows/buildspigot-buildtools.yml".
+# No further support on this script.
+# 
 name: BuildSpigot
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
-
   workflow_dispatch:
 
 jobs:
