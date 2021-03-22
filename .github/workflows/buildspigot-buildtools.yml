@@ -1,0 +1,28 @@
+name: BuildSpigot
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Get BuildTools from https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+      - name: Getting BuildTools
+        run: curl https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+
+      # Build Spigot by BuildTools
+      - name: Building Spigot
+        # !! Change 'latest' to the version what you wanted. !!
+        run: java -jar BuildTools.jar --rev latest
+      
+      # Uploading the build jar files.
+      - name: Uploading Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: spigot
+          path: ./spigot*.jar
