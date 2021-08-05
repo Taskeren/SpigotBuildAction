@@ -2,36 +2,43 @@ name: BuildSpigot with Latest BuildTools
 
 on:
   schedule:
-    - cron: "0 0 1,10,20,30 * *"
+    - cron: "0 0 6,12,18,24,30 * *"
 
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: "ubuntu-latest"
 
     steps:
       # Get BuildTools from https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-      - name: Getting BuildTools
-        run: curl https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar -o ./BuildTools.jar
+      - name: "Getting BuildTools"
+        run: "curl https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar -o ./BuildTools.jar"
+
+      - name: "Setting up Java Development Kit"
+        uses: "actions/setup-java@v2.1.0"
+        with:
+          distribution: "adopt"
+          java-version: "16"
 
       # Build Spigot by BuildTools
-      - name: Building Spigot
+      - name: "Building Spigot"
         # !! Change 'latest' to the version what you wanted. !!
-        run: java -jar BuildTools.jar --rev latest
+        # Also Java version need changing if you're trying building versions below 1.17.X!
+        run: "java -jar BuildTools.jar --rev latest"
       
       # Uploading the build jar files.
-      - name: Uploading Build
-        uses: actions/upload-artifact@v2
+      - name: "Uploading Build"
+        uses: "actions/upload-artifact@v2"
         with:
-          name: spigot
-          path: ./spigot*.jar
+          name: "Spigot"
+          path: "./spigot*.jar"
         
-      - name: Getting Current Date
+      - name: "Getting Current Date"
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
-      - name: Creating Release
+      - name: "Creating Release"
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
