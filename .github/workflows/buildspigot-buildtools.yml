@@ -18,7 +18,7 @@ jobs:
       - name: "Setting up Java Development Kit"
         uses: "actions/setup-java@v2.1.0"
         with:
-          distribution: "microsoft"
+          distribution: "adopt"
           java-version: "17"
 
       # Build Spigot by BuildTools
