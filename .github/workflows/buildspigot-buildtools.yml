@@ -16,10 +16,13 @@ jobs:
         run: "curl https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar -o ./BuildTools.jar"
 
       - name: "Setting up Java Development Kit"
-        uses: "actions/setup-java@v2.1.0"
+        uses: "actions/setup-java@v4"
         with:
-          distribution: "adopt"
-          java-version: "17"
+          # You can get the distribution lists at
+          # https://github.com/actions/setup-java#supported-distributions
+          distribution: "temurin"
+          # Use a proper Java version to execute the build application
+          java-version: "21"
 
       # Build Spigot by BuildTools
       - name: "Building Spigot"
