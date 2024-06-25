@@ -35,7 +35,9 @@ You can get the other version just doing following steps,
 
 ### 兼容的 Java 版本
 
-- Minecraft 1.18 and above
+- Minecraft 1.21 and above
+  - `java-version: "21"`
+- Minecraft 1.18 until 1.20
   - `java-version: "17"`
 - Minecraft 1.17
   - `java-version: "16"`
