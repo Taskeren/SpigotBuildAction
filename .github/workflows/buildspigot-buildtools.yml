@@ -5,6 +5,7 @@ on:
     - cron: "0 0 6,12,18,24,30 * *"
 
   workflow_dispatch:
+  push:
 
 jobs:
   build:
